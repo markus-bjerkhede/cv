@@ -2,7 +2,7 @@
 
 
 ## Prerequisite
-Needs [backend](http://www.reddit.com) to run. 
+Needs [backend](https://github.com/markus-bjerkhede/cv-api) to run. 
 
 ## Project setup
 ```
