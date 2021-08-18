@@ -1,6 +1,10 @@
 <template>
   <div>
-    <!-- @click="updatePrivateStatus()" -->
+    <label for="toggle">Available</label>
+    <Toggle
+        id="toggle"
+        v-model="available"
+    />
     <img alt="profile picture" :src="profilePic" class="cropped-image" />
     <p>{{ firstName }}</p>
     <p>{{ lastName }}</p>
@@ -9,18 +13,19 @@
 </template>
 
 <script>
-import VueToggleBtn from "vue-toggle-btn";
+import Toggle from '@vueform/toggle';
 import axios from "axios";
 export default {
   name: "Consultant",
-  components: { VueToggleBtn },
-  data() {
+components: { Toggle },
+ data() {
     return {
       phone: "",
       firstName: "",
       lastName: "",
       profilePic: "",
       public: "",
+      available: Boolean
     };
   },
   props: {
@@ -53,6 +58,7 @@ export default {
             this.phone = response.data.user.phone;
             this.firstName = response.data.user.firstname;
             this.lastName = response.data.user.lastname;
+            this.available = response.data.user.availible;
           }
         })
         .catch((error) => {
