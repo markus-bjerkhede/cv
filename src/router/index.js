@@ -6,8 +6,8 @@ import Login from "@/views/Login.vue";
 import Consultants from "@/views/Consultants.vue";
 import MyProfile from "@/views/MyProfile.vue";
 import EditUser from "@/views/EditUser.vue";
-import Test from "@/views/Test.vue";
-
+import Consultant from "@/views/Consultant.vue";
+import EditConsultant from "@/views/EditConsultant.vue";
 const routes = [
   {
     path: "/",
@@ -45,12 +45,17 @@ const routes = [
     component: EditUser,
   },
   {
-    path: "/test/:id",
-    name: "test",
-    component: Test,
+    path: "/consultant/cv/:id",
+    name: "consultant",
+    component: Consultant,
     props: true
   },
-
+  {
+    path: "/consultant/edit/:id",
+    name: "EditConsultant",
+    component: EditConsultant,
+    props: true
+  },
 ];
 
 const router = createRouter({

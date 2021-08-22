@@ -17,7 +17,7 @@
         <img class="share" src="../assets/HomeImg.png" alt="" />
       </div>
     </div>
-    <div>
+    <div v-if="!isLoggedIn">
       <span>
         <router-link class="button1" to="/register">Register</router-link>
       </span>
@@ -29,7 +29,13 @@
 </template>
 
 <script>
-export default {};
+export default {
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters.isLoggedIn;
+    },
+  },
+};
 </script>
 <style scoped>
 h1 {

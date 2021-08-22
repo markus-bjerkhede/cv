@@ -1,6 +1,9 @@
 <template>
   <header class="navigation">
-    <img class="logo" src="../assets/CVLogo_small.png" alt="Missing Logo" />
+    <router-link class="logo-link" to="/"
+      ><img class="logo" src="../assets/CVLogo_small.png" alt="Missing Logo"
+    /></router-link>
+
     <div class="big">
       <router-link class="link-style" to="/">Home</router-link>
     </div>
@@ -33,28 +36,28 @@
       <Logout />
     </div>
     <div class="small">
-    <Slide right class="small" :closeOnNavigation="true">
-      <router-link class="link-style" to="/">Hem</router-link>
-      <router-link v-if="!isLoggedIn" class="link-style" to="/register"
-        >Register</router-link
-      >
-      <router-link v-if="!isLoggedIn" class="link-style" to="/login"
-        >Login</router-link
-      >
-      <router-link v-if="isLoggedIn" class="link-style" to="/consultants"
-        >Consultants</router-link
-      >
-      <!-- <router-link v-if="isLoggedIn" class="link-style" to="/myProfile"
+      <Slide right class="small" :closeOnNavigation="true">
+        <router-link class="link-style" to="/">Hem</router-link>
+        <router-link v-if="!isLoggedIn" class="link-style" to="/register"
+          >Register</router-link
+        >
+        <router-link v-if="!isLoggedIn" class="link-style" to="/login"
+          >Login</router-link
+        >
+        <router-link v-if="isLoggedIn" class="link-style" to="/consultants"
+          >Consultants</router-link
+        >
+        <!-- <router-link v-if="isLoggedIn" class="link-style" to="/myProfile"
         >My profile</router-link
       > -->
-      <!-- <router-link v-if="isLoggedIn" class="link-style" to="/profile"
+        <!-- <router-link v-if="isLoggedIn" class="link-style" to="/profile"
         >Profile</router-link
       > -->
-      <router-link v-if="isLoggedIn" class="link-style" to="/myProfile"
-        >My profile</router-link
-      >
-      <Logout v-if="isLoggedIn" />
-    </Slide>
+        <router-link v-if="isLoggedIn" class="link-style" to="/myProfile"
+          >My profile</router-link
+        >
+        <Logout v-if="isLoggedIn" />
+      </Slide>
     </div>
   </header>
 </template>
@@ -112,11 +115,14 @@ export default {
   flex-basis: 100%;
 }
 a.router-link-active {
-  background-color: #bbb;
+  cursor: default;
+  color: purple;
+  border-bottom: solid 1px purple;
 }
-.navigation .current {
-background-color: red;
+a.logo-link {
+  border-bottom: none;
 }
+
 .link-style {
   color: #4ec4fd;
   text-decoration: none;
@@ -128,7 +134,9 @@ background-color: red;
   .big {
     display: none;
   }
-  .navigation {justify-content: left;}
+  .navigation {
+    justify-content: left;
+  }
   .small {
     display: flex;
     position: relative;
@@ -136,7 +144,7 @@ background-color: red;
     /* margin-left: 30rem;
     margin-bottom: 6rem; */
     width: 100%;
-    flex-basis: 100%
+    flex-basis: 100%;
   }
   .bm-menu {
     display: flex;

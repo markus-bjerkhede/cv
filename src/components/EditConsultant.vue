@@ -3,14 +3,24 @@
     <img alt="profile picture" :src="profilePic" class="cropped-image" />
     <p>{{ firstName }}</p>
     <p>{{ lastName }}</p>
-    <p>{{ phone }}</p>
+    <label for="toggle">Available</label>
+    <Toggle id="toggle" v-model="available" />
+    <div>
+      <label for="roles">Role:</label>
+      <select class="custom-select" v-model="role" name="roles" id="roles">
+        <option value="user">User</option>
+        <option value="admin">Admin</option>
+      </select>
+    </div>
+    <button @click="update">Post</button>
   </div>
 </template>
 
 <script>
+import Toggle from "@vueform/toggle";
 import axios from "axios";
 export default {
-  name: "Consultant",
+  components: { Toggle },
   data() {
     return {
       phone: "",
@@ -18,6 +28,7 @@ export default {
       lastName: "",
       profilePic: "",
       public: "",
+      role: "",
       available: Boolean,
     };
   },
@@ -52,6 +63,7 @@ export default {
             this.firstName = response.data.user.firstname;
             this.lastName = response.data.user.lastname;
             this.available = response.data.user.availible;
+            this.role = response.data.user.role;
           }
         })
         .catch((error) => {
@@ -127,6 +139,35 @@ export default {
         .then((response) => {
           if (response.status === 200) {
             this.public = response.data.privateResume;
+          }
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            this.errMsg = "Invalid username or password";
+          } else {
+            this.errMsg = "Something went wrong";
+          }
+        });
+    },
+    async update() {
+      const data = {
+        _id: this.id,
+        role: this.role,
+        availibility: this.available,
+      };
+      let request = {
+        url: "http://localhost:5000/users/user/updaterole",
+        withCredentials: true,
+        method: "put",
+        headers: {
+          "Content-type": "application/json",
+        },
+        data: data,
+      };
+      await axios(request)
+        .then((response) => {
+          if (response.status === 200) {
+            this.$toast.success(`Updated consultant ${this.firstName}`);
           }
         })
         .catch((error) => {

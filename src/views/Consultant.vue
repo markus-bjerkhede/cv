@@ -4,13 +4,12 @@
 
 <script>
 import Consultant from "../components/Consultant.vue";
-
 export default {
   components: { Consultant },
   props: {
     id: {
       type: String,
-      default: "Hejsan",
+      default: "",
     },
   },
 };
