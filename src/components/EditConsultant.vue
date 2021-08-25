@@ -1,18 +1,26 @@
 <template>
   <div>
-    <img alt="profile picture" :src="profilePic" class="cropped-image" />
-    <p>{{ firstName }}</p>
-    <p>{{ lastName }}</p>
+    <div>
+      <img alt="profile picture" :src="profilePic" class="cropped-image" />
+      <p>{{ firstName }}</p>
+      <p>{{ lastName }}</p>
+      <p>{{ phone }}</p>
+    </div>
     <label for="toggle">Available</label>
     <Toggle id="toggle" v-model="available" />
     <div>
       <label for="roles">Role:</label>
-      <select class="custom-select" v-model="role" name="roles" id="roles">
-        <option value="user">User</option>
-        <option value="admin">Admin</option>
-      </select>
+      <div class="custom-select">
+        <select v-model="role" name="roles" id="roles">
+          <option value="user">User</option>
+          <option value="admin">Admin</option>
+        </select>
+      </div>
     </div>
     <button @click="update">Post</button>
+    <div>
+      <button @click="deleteUser">delete user</button>
+    </div>
   </div>
 </template>
 
@@ -178,9 +186,38 @@ export default {
           }
         });
     },
+
+    async deleteUser() {
+      const data = {
+        _id: this.id,
+      };
+      let request = {
+        url: "http://localhost:5000/users/user/delete",
+        withCredentials: true,
+        method: "delete",
+        headers: {
+          "Content-type": "application/json",
+        },
+        data: data,
+      };
+      await axios(request)
+        .then((response) => {
+          if (response.status === 200) {
+            this.$toast.success(`User removed ${this.firstName}`);
+            this.$router.push("/consultants");
+          }
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            this.errMsg = "Unauthorized";
+          } else {
+            this.errMsg = "Something went wrong";
+          }
+        });
+    },
   },
 };
 </script>
 
-<style>
+<style scoped>
 </style>
