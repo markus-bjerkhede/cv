@@ -1,10 +1,16 @@
 <template>
-  <div>
+<section class="wrapper">
     <img alt="profile picture" :src="profilePic" class="cropped-image" />
-    <p>{{ firstName }}</p>
-    <p>{{ lastName }}</p>
-    <p>{{ phone }}</p>
-  </div>
+    <div>
+      <p>{{ firstName }}</p>
+      <p>{{ lastName }}</p>
+    </div>
+    <div>
+      <p>{{ title }}</p>
+      <p>{{ email }}</p>
+      <p>{{ phone }}</p>
+    </div>
+</section>
 </template>
 
 <script>
@@ -13,11 +19,13 @@ export default {
   name: "Consultant",
   data() {
     return {
+      title: "",
       phone: "",
       firstName: "",
       lastName: "",
       profilePic: "",
       public: "",
+      email: "",
       available: Boolean,
     };
   },
@@ -52,6 +60,8 @@ export default {
             this.firstName = response.data.user.firstname;
             this.lastName = response.data.user.lastname;
             this.available = response.data.user.availible;
+            this.title = response.data.user.title;
+            this.email = response.data.user.email;
           }
         })
         .catch((error) => {
@@ -141,5 +151,15 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.wrapper {
+  display: flex;
+  justify-content: center;
+}
+div {
+  margin: 1rem;
+}
+section {
+  margin-top: 2rem;
+}
 </style>

@@ -102,9 +102,7 @@ export default {
   display: flex;
   justify-content: center;
 }
-/* .wrapper > * {
-  flex: 1;
-} */
+
 div {
   margin: 1rem;
 }

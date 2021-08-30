@@ -1,10 +1,16 @@
 <template>
-  <div>
+  <section>
+    <div class="wrapper">
+       <img alt="profile picture" :src="profilePic" class="cropped-image" />
     <div>
-      <img alt="profile picture" :src="profilePic" class="cropped-image" />
       <p>{{ firstName }}</p>
       <p>{{ lastName }}</p>
+    </div>
+    <div>
+      <p>{{ title }}</p>
+      <p>{{ email }}</p>
       <p>{{ phone }}</p>
+    </div>
     </div>
     <label for="toggle">Available</label>
     <Toggle id="toggle" v-model="available" />
@@ -17,11 +23,11 @@
         </select>
       </div>
     </div>
-    <button @click="update">Post</button>
+    <button class="button1" @click="update">Post</button>
     <div>
-      <button @click="deleteUser">delete user</button>
+      <button class="button2" @click="deleteUser">delete user</button>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -70,6 +76,8 @@ export default {
             this.phone = response.data.user.phone;
             this.firstName = response.data.user.firstname;
             this.lastName = response.data.user.lastname;
+            this.title = response.data.user.title;
+            this.email = response.data.user.email;
             this.available = response.data.user.availible;
             this.role = response.data.user.role;
           }
@@ -220,4 +228,14 @@ export default {
 </script>
 
 <style scoped>
+.wrapper {
+  display: flex;
+  justify-content: center;
+}
+div {
+  margin: 1rem;
+}
+section {
+  margin-top: 2rem;
+}
 </style>
