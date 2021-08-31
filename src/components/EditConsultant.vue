@@ -1,6 +1,7 @@
 <template>
-<section class="wrapper">
-    <img alt="profile picture" :src="profilePic" class="cropped-image" />
+  <section>
+    <div class="wrapper">
+       <img alt="profile picture" :src="profilePic" class="cropped-image" />
     <div>
       <p>{{ firstName }}</p>
       <p>{{ lastName }}</p>
@@ -10,22 +11,40 @@
       <p>{{ email }}</p>
       <p>{{ phone }}</p>
     </div>
-</section>
+    </div>
+    <label for="toggle">Available</label>
+    <Toggle id="toggle" v-model="available" />
+    <div>
+      <label for="roles">Role:</label>
+      <div class="custom-select">
+        <select v-model="role" name="roles" id="roles">
+          <option value="user">User</option>
+          <option value="admin">Admin</option>
+        </select>
+      </div>
+    </div>
+    <button class="button positive" @click="update">Post</button>
+    <div>
+      <button class="button negative" @click="deleteUser">delete user</button>
+    </div>
+  </section>
 </template>
 
 <script>
+import Toggle from "@vueform/toggle";
 import axios from "axios";
 export default {
-  name: "Consultant",
+  components: { Toggle },
   data() {
     return {
-      title: "",
+      email:"",
+      title:"",
       phone: "",
       firstName: "",
       lastName: "",
       profilePic: "",
       public: "",
-      email: "",
+      role: "",
       available: Boolean,
     };
   },
@@ -59,9 +78,10 @@ export default {
             this.phone = response.data.user.phone;
             this.firstName = response.data.user.firstname;
             this.lastName = response.data.user.lastname;
-            this.available = response.data.user.availible;
             this.title = response.data.user.title;
             this.email = response.data.user.email;
+            this.available = response.data.user.availible;
+            this.role = response.data.user.role;
           }
         })
         .catch((error) => {
@@ -142,6 +162,64 @@ export default {
         .catch((error) => {
           if (error.response.status === 401) {
             this.errMsg = "Invalid username or password";
+          } else {
+            this.errMsg = "Something went wrong";
+          }
+        });
+    },
+    async update() {
+      const data = {
+        _id: this.id,
+        role: this.role,
+        availibility: this.available,
+      };
+      let request = {
+        url: "http://localhost:5000/users/user/updaterole",
+        withCredentials: true,
+        method: "put",
+        headers: {
+          "Content-type": "application/json",
+        },
+        data: data,
+      };
+      await axios(request)
+        .then((response) => {
+          if (response.status === 200) {
+            this.$toast.success(`Updated consultant ${this.firstName}`);
+          }
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            this.errMsg = "Invalid username or password";
+          } else {
+            this.errMsg = "Something went wrong";
+          }
+        });
+    },
+
+    async deleteUser() {
+      const data = {
+        _id: this.id,
+      };
+      let request = {
+        url: "http://localhost:5000/users/user/delete",
+        withCredentials: true,
+        method: "delete",
+        headers: {
+          "Content-type": "application/json",
+        },
+        data: data,
+      };
+      await axios(request)
+        .then((response) => {
+          if (response.status === 200) {
+            this.$toast.success(`User removed ${this.firstName}`);
+            this.$router.push("/consultants");
+          }
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            this.errMsg = "Unauthorized";
           } else {
             this.errMsg = "Something went wrong";
           }

@@ -20,11 +20,11 @@
       <div id="scrollToHobby" v-show="showAdd" class="input-area">
         <input v-model="hobby" />
         <div>
-          <button class="button1" @click="addHobby">Submit hobby</button>
-          <button @click="cancelForm" class="button2">Cancel</button>
+          <button class="button positive" @click="addHobby">Submit hobby</button>
+          <button @click="cancelForm" class="button negative">Cancel</button>
         </div>
       </div>
-      <button v-show="!showAdd" class="button1" @click="smoothScroll">
+      <button v-show="!showAdd" class="button positive" @click="smoothScroll">
         Add hobby
       </button>
     </div>

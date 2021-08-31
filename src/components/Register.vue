@@ -4,7 +4,7 @@
       <input v-model="username" placeholder="username" />
       <input v-model="password" type="password" placeholder="password" />
       <input v-model="password2" type="password" placeholder="password" />
-      <button class="button1" @click="validatePassword">Create user</button>
+      <button class="button positive" @click="validatePassword">Create user</button>
     </div>
   </section>
 </template>

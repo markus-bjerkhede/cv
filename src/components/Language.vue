@@ -45,13 +45,13 @@
           <Star @update="setStars" />
 
           <div>
-            <button class="button1" @click="addlanguage">
+            <button class="button positive" @click="addlanguage">
               Submit language
             </button>
-            <button @click="cancelForm" class="button2">Cancel</button>
+            <button @click="cancelForm" class="button negative">Cancel</button>
           </div>
         </div>
-        <button v-show="!showAdd" class="button1" @click="smoothScroll">
+        <button v-show="!showAdd" class="button positive" @click="smoothScroll">
           Add language
         </button>
       </div>

@@ -17,25 +17,31 @@
         <img class="share" src="../assets/HomeImg.png" alt="" />
       </div>
     </div>
-    <div>
+    <div v-if="!isLoggedIn">
       <span>
-        <router-link class="button1" to="/register">Register</router-link>
+        <router-link class="button positive" to="/register">Register</router-link>
       </span>
       <span>
-        <router-link class="button1" to="/login">Login</router-link>
+        <router-link class="button positive" to="/login">Login</router-link>
       </span>
     </div>
   </main>
 </template>
 
 <script>
-export default {};
+export default {
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters.isLoggedIn;
+    },
+  },
+};
 </script>
 <style scoped>
 h1 {
   margin-top: 5rem;
 }
-.button1 {
+.button {
   width: 5rem;
   margin: 0 4rem;
 }

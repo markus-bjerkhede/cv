@@ -18,7 +18,7 @@
           />
         </div>
       </div>
-      <button v-if="!readOnly" class="button1" @click="createUserInfo">
+      <button v-if="!readOnly" class="button positive" @click="createUserInfo">
         Add presentation
       </button>
     </div>

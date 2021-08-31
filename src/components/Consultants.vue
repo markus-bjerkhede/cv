@@ -25,8 +25,8 @@ export default {
     };
   },
   mounted() {
-      this.checkIfAdmin();
-      this.initiateTable();
+    this.checkIfAdmin();
+    this.initiateTable();
   },
   methods: {
     async initiateTable() {
@@ -47,17 +47,30 @@ export default {
             label: "Name",
             field: "fullName",
             sortable: true,
-            display: (row) => {
-              return '<a href="/test/' + row.id + '">' + row.fullName + '</a>';
-            },
           },
-          { label: "Role", field: "role", sortable:true },
           { label: "Title", field: "title", sortable: true },
-          { label: "Availability", field: "available" },
         ],
         rows: this.users,
         totalRecordCount: this.users.length,
       };
+      const linksColumn = {
+        label: "Links",
+        display: (row) => {
+          let element =
+            '<a class="button positive" href="/consultant/cv/' +
+            row.id +
+            '">Show CV</a>';
+          if (this.isAdmin) {
+            element =
+              element +
+              '<a class="button positive" href="/consultant/edit/' +
+              row.id +
+              '">Edit</a>';
+          }
+          return element;
+        },
+      };
+      this.table.columns.push(linksColumn);
     },
     async getAllUsers() {
       let request = {
@@ -73,13 +86,13 @@ export default {
           if (response.status === 200) {
             const users = [];
             for (const entry of response.data.users) {
-              if (!entry.privateResume || this.isAdmin) {
+              if (entry.availible || this.isAdmin) {
                 const user = {
                   fullName:
-                    (entry.firstname ? entry.firstname : "Unknown") + (entry.lastname ? entry.lastname : ""),
-                  role: entry.role || "",
+                    (entry.firstname ? entry.firstname : "Unknown") +
+                    " " +
+                    (entry.lastname ? entry.lastname : ""),
                   title: entry.title || "",
-                  available: entry.availible ? "Available" : "Not available",
                   id: entry._id,
                   profilePic: entry.profilePic,
                 };
