@@ -9,17 +9,18 @@
               class="editable-span"
               spellcheck="false"
               contenteditable="true"
-              @blur="updatelanguageName($event, language._id, language.stars)"
+              @blur="updateLanguageName($event, language._id, language.stars)"
             >
               {{ language.name }}
             </span>
           </td>
           <td>
             <Star
-              @update="updatelanguagestars"
+              @update="updateLanguageStars"
               :initialValue="language.stars"
               :name="language.name"
               :id="language._id"
+              :disabled="readOnly"
             />
           </td>
           <td v-if="!readOnly">
@@ -27,7 +28,7 @@
               class="icon"
               alt="remove"
               src="../assets/icons/rubbish-bin.png"
-              @click="removelanguage(language._id)"
+              @click="removeLanguage(language._id)"
             />
           </td>
         </tr>
@@ -45,7 +46,7 @@
           <Star @update="setStars" />
 
           <div>
-            <button class="button positive" @click="addlanguage">
+            <button class="button positive" @click="addLanguage">
               Submit language
             </button>
             <button @click="cancelForm" class="button negative">Cancel</button>
@@ -71,24 +72,25 @@ export default {
   data() {
     return {
       languageName: "",
-      languagestars: "",
+      languageStars: "",
       showAdd: false,
       languages: [],
     };
   },
   props: {
     readOnly: { type: Boolean, default: false },
+    id: { type: String, default: null}
   },
 
   beforeMount() {
-    this.getlanguages();
+    this.getLanguages();
   },
 
   methods: {
-    async addlanguage() {
+    async addLanguage() {
       const body = {
         name: this.languageName,
-        stars: this.languagestars,
+        stars: this.languageStars,
       };
 
       const request = {
@@ -105,25 +107,36 @@ export default {
         .then((response) => {
           if (response.status === 200) {
             this.$toast.success(`Added language ${this.languageName}`);
-            this.languagestars = "";
+            this.languageStars = "";
             this.cancelForm();
-            this.getlanguages();
+            this.getLanguages();
           }
         })
         .catch((error) => {
           this.$toast.error(`Error adding language: ${error}`);
         });
     },
-    async getlanguages() {
-      const request = {
-        url: "http://localhost:5000/users/user/languages",
-        withCredentials: true,
-        method: "get",
-        headers: {
-          "Content-type": "application/json",
-        },
+    async getLanguages() {
+        let request;
+      if (this.id) {
+        request = {
+         url: "http://localhost:5000/public/user/publiclanguages",
+          method: "post",
+          headers: {
+            "Content-type": "application/json",
+          },
+          data: { _id: this.id }
+        };
+         } else {
+        request = {
+          url: "http://localhost:5000/users/user/languages",
+          method: "get",
+          withCredentials: true,
+          headers: {
+            "Content-type": "application/json",
+          },
+        };
       };
-
       await axios(request)
         .then((response) => {
           if (response.status === 200) {
@@ -138,7 +151,7 @@ export default {
           console.log(error);
         });
     },
-    async removelanguage(id) {
+    async removeLanguage(id) {
       const body = {
         _id: id,
       };
@@ -157,33 +170,33 @@ export default {
         .then((response) => {
           if (response.status === 200) {
             this.$toast.info("language removed");
-            this.getlanguages();
+            this.getLanguages();
           }
         })
         .catch((error) => {
           console.log(error);
         });
     },
-    async updatelanguageName(event, id, stars) {
+    async updateLanguageName(event, id, stars) {
       const body = {
         _id: id,
         name: event.target.innerText,
         stars: stars,
       };
-      await this.updatelanguage(body);
+      await this.updateLanguage(body);
     },
-    async updatelanguagestars(stars, id, name) {
+    async updateLanguageStars(stars, id, name) {
       const body = {
         _id: id,
         name: name,
         stars: stars,
       };
-      await this.updatelanguage(body);
+      await this.updateLanguage(body);
     },
     async setStars(stars) {
-      this.languagestars = stars;
+      this.languageStars = stars;
     },
-    async updatelanguage(body) {
+    async updateLanguage(body) {
       const request = {
         url: "http://localhost:5000/users/user/updatelanguage",
         withCredentials: true,
@@ -198,7 +211,7 @@ export default {
         .then((response) => {
           if (response.status === 200) {
             this.$toast.success(`Updated language ${body.name}`);
-            this.getlanguages();
+            this.getLanguages();
           }
         })
         .catch((error) => {
@@ -208,7 +221,6 @@ export default {
     async smoothScroll() {
       const container = document.getElementById("scrollToLanguage");
       this.showAdd = true;
-      await this.showAdd;
       this.$smoothScroll({
         updateHistory: false,
         scrollTo: container,
@@ -216,7 +228,7 @@ export default {
     },
     cancelForm() {
       this.languageName = "";
-      this.languagestars = "";
+      this.languageStars = "";
       this.showAdd = false;
     },
   },

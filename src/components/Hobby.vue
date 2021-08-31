@@ -44,8 +44,8 @@ export default {
   },
   props: {
     readOnly: { type: Boolean, default: false },
+    id: { type: String, default: null}
   },
-
   beforeMount() {
     this.getHobbies();
   },
@@ -70,18 +70,30 @@ export default {
             this.getHobbies();
           }
         })
-        .catch((err) => {
-          console.log(err);
+        .catch(() => {
+          this.$toast.error("Something went wrong");
         });
     },
     async getHobbies() {
-      const request = {
-        url: "http://localhost:5000/users/user/hobbies",
-        withCredentials: true,
-        method: "get",
-        headers: {
-          "Content-type": "application/json",
-        },
+      let request;
+      if (this.id) {
+        request = {
+          url: "http://localhost:5000/public/user/publichobbies",
+          method: "post",
+          headers: {
+            "Content-type": "application/json",
+          },
+          data: { _id: this.id }
+        };
+      } else {
+        request = {
+          url: "http://localhost:5000/users/user/hobbies",
+          method: "get",
+          withCredentials: true,
+          headers: {
+            "Content-type": "application/json",
+          },
+        };
       };
 
       await axios(request)
@@ -123,7 +135,6 @@ export default {
     async smoothScroll() {
       const container = document.getElementById("scrollToHobby");
       this.showAdd = true;
-      await this.showAdd;
       this.$smoothScroll({
         updateHistory: false,
         scrollTo: container,

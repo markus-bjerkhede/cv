@@ -25,7 +25,7 @@
     </div>
     <button class="button positive" @click="update">Post</button>
     <div>
-      <button class="button negative" @click="deleteUser">delete user</button>
+      <button class="button negative" @click="deleteUser">Delete user</button>
     </div>
   </section>
 </template>
@@ -74,7 +74,6 @@ export default {
       await axios(request)
         .then((response) => {
           if (response.status === 200) {
-            console.log(response.data);
             this.phone = response.data.user.phone;
             this.firstName = response.data.user.firstname;
             this.lastName = response.data.user.lastname;
@@ -131,7 +130,6 @@ export default {
         .then((response) => {
           if (response.status === 200) {
             this.public = response.data.privateResume;
-            console.log(this.public);
           }
         })
         .catch((error) => {

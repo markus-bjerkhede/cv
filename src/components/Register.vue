@@ -48,7 +48,6 @@ export default {
       await axios
         .request(options)
         .then((response) => {
-          console.log(response);
           if (response.status === 201) {
             this.$toast.success(`User created`);
             this.$router.push("/login");

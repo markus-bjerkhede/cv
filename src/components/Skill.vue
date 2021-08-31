@@ -19,6 +19,7 @@
             :initialValue="skill.stars"
             :name="skill.name"
             :id="skill._id"
+            :disabled="readOnly"
           />
         </td>
         <td v-if="!readOnly">
@@ -41,7 +42,7 @@
           name="skill"
           placeholder="I.E Java"
         />
-        <Star @update="setStars" />
+        <Star @update="setStars" :disabled="readOnly" />
         <div>
           <button class="button positive" @click="addSkill">Submit skill</button>
           <button @click="cancelForm" class="button negative">Cancel</button>
@@ -74,9 +75,10 @@ export default {
 
   props: {
     readOnly: { type: Boolean, default: false },
+    id: { type: String, default: null}
   },
 
-  beforeMount() {
+  mounted() {
     this.getSkills();
   },
 
@@ -110,15 +112,26 @@ export default {
         });
     },
     async getSkills() {
-      const request = {
-        url: "http://localhost:5000/users/user/skills",
-        withCredentials: true,
-        method: "get",
-        headers: {
-          "Content-type": "application/json",
-        },
+          let request;
+      if (this.id) {
+        request = {
+        url: "http://localhost:5000/public/user/publicskills",
+          method: "post",
+          headers: {
+            "Content-type": "application/json",
+          },
+          data: { _id: this.id }
+        };
+         } else {
+        request = {
+          url: "http://localhost:5000/users/user/skills",
+          method: "get",
+          withCredentials: true,
+          headers: {
+            "Content-type": "application/json",
+          },
+        };
       };
-
       await axios(request)
         .then((response) => {
           if (response.status === 200) {
@@ -200,7 +213,6 @@ export default {
     async smoothScroll() {
       const container = document.getElementById("scrollToSkill");
       this.showAdd = true;
-      await this.showAdd;
       this.$smoothScroll({
         updateHistory: false,
         scrollTo: container,
