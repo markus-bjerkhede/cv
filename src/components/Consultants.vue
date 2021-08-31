@@ -82,29 +82,29 @@ export default {
         },
       };
       await axios(request)
-        .then((response) => {
-          if (response.status === 200) {
-            const users = [];
-            for (const entry of response.data.users) {
-              if (entry.availible || this.isAdmin) {
+          .then((response) => {
+            if (response.status === 200) {
+              const users = [];
+              for (const entry of response.data.users) {
+                if (entry.availible || this.isAdmin) {
                 const user = {
                   fullName:
                     (entry.firstname ? entry.firstname : "Unknown") +
                     " " +
                     (entry.lastname ? entry.lastname : ""),
                   title: entry.title || "",
-                  id: entry._id,
-                  profilePic: entry.profilePic,
-                };
-                users.push(user);
+                    id: entry._id,
+                    profilePic: entry.profilePic,
+                  };
+                  users.push(user);
+                }
               }
+              this.users = users;
             }
-            this.users = users;
-          }
-        })
-        .catch((error) => {
-          console.log(error.status);
-        });
+          })
+          .catch((error) => {
+            console.log(error.status);
+          });
     },
     async checkIfAdmin() {
       let request = {

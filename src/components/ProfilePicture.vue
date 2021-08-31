@@ -87,8 +87,8 @@ export default {
             this.preview = false;
           }
         })
-        .catch((error) => {
-          console.log("Bild inte uppladdad", error);
+        .catch(() => {
+          this.$toast.error("Could not upload profile picture")
         });
     },
   },

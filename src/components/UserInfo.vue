@@ -55,7 +55,6 @@ export default {
       await axios(request)
         .then((response) => {
           if (response.status === 200) {
-            console.log(response.data);
             this.email = response.data.email;
             this.firstName = response.data.firstname;
             this.lastName = response.data.lastname;

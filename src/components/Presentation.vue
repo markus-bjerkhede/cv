@@ -2,11 +2,12 @@
   <section>
     <div class="attribute-container">
       <div class="input-layout text-area">
-        <h2 v-if="!readOnly">Write something about yourself</h2>
         <div class="presentation-container" v-if="readOnly">
+          <h2>About me</h2>
           <p>{{ presentation }}</p>
         </div>
         <div v-else>
+          <h2>Write something about yourself</h2>
           <textarea
             cols="2"
             rows="10"
@@ -14,7 +15,6 @@
             id="profile-presentation"
             v-model="presentation"
             style="resize: none"
-            type="text"
           />
         </div>
       </div>

@@ -2,7 +2,7 @@
   <section>
     <div class="grid">
       <span class="experiance">
-        <Presentation :readOnly="true" :display="true" />
+        <Presentation :readOnly="false" />
       </span>
       <Experience :readOnly="false" />
       <Education :readOnly="false" />

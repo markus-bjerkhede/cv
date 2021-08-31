@@ -99,6 +99,7 @@ export default {
   },
   props: {
     readOnly: { type: Boolean, default: false },
+    id: { type: String, default: null}
   },
   beforeMount() {
     this.getEducations();
@@ -136,13 +137,25 @@ export default {
         });
     },
     async getEducations() {
-      const request = {
-        url: "http://localhost:5000/users/user/educations",
-        withCredentials: true,
-        method: "get",
-        headers: {
-          "Content-type": "application/json",
-        },
+      let request;
+      if (this.id) {
+        request = {
+         url: "http://localhost:5000/public/user/publiceducations",
+          method: "post",
+          headers: {
+            "Content-type": "application/json",
+          },
+          data: { _id: this.id }
+        };
+         } else {
+        request = {
+          url: "http://localhost:5000/users/user/educations",
+          method: "get",
+          withCredentials: true,
+          headers: {
+            "Content-type": "application/json",
+          },
+        };
       };
 
       await axios(request)
@@ -181,7 +194,6 @@ export default {
     async smoothScroll() {
       const container = document.getElementById("scrollToEducation");
       this.showAdd = true;
-      await this.showAdd;
       this.$smoothScroll({
         updateHistory: false,
         scrollTo: container,
