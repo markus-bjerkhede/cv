@@ -65,13 +65,13 @@
           Are you still undergoing this education?</label
         >
         <div>
-          <button class="button1" @click="addEducation">
+          <button class="button positive" @click="addEducation">
             Submit education
           </button>
-          <button @click="cancelForm" class="button2">Cancel</button>
+          <button @click="cancelForm" class="button negative">Cancel</button>
         </div>
       </div>
-      <button v-show="!showAdd" class="button1" @click="smoothScroll">
+      <button v-show="!showAdd" class="button positive" @click="smoothScroll">
         Add education
       </button>
     </div>

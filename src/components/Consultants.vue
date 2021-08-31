@@ -57,13 +57,13 @@ export default {
         label: "Links",
         display: (row) => {
           let element =
-            '<a class="button1" href="/consultant/cv/' +
+            '<a class="button positive" href="/consultant/cv/' +
             row.id +
             '">Show CV</a>';
           if (this.isAdmin) {
             element =
               element +
-              '<a class="button1" href="/consultant/edit/' +
+              '<a class="button positive" href="/consultant/edit/' +
               row.id +
               '">Edit</a>';
           }

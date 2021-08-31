@@ -24,7 +24,7 @@
         <input
           type="submit"
           value="Login"
-          class="button1"
+          class="button positive"
           :disabled="sendButtonDisabled"
         />
         <span> {{ errMsg }} </span>

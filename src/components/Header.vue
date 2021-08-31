@@ -19,14 +19,6 @@
         >Consultants</router-link
       >
     </div>
-    <!-- <div class="big" v-if="isLoggedIn">
-      <router-link class="link-style" to="/myProfile">My Profile</router-link>
-    </div> -->
-    <!-- <div class="big" v-if="isLoggedIn">
-      <router-link v-if="isLoggedIn" class="link-style" to="/profile"
-        >Profile</router-link
-      >
-    </div> -->
     <div class="big" v-if="isLoggedIn">
       <router-link v-if="isLoggedIn" class="link-style" to="/myProfile"
         >My profile</router-link
@@ -36,7 +28,7 @@
       <Logout />
     </div>
     <div class="small">
-      <Slide right class="small" :closeOnNavigation="true">
+      <Slide class="small" :closeOnNavigation="true">
         <router-link class="link-style" to="/">Hem</router-link>
         <router-link v-if="!isLoggedIn" class="link-style" to="/register"
           >Register</router-link
@@ -47,12 +39,6 @@
         <router-link v-if="isLoggedIn" class="link-style" to="/consultants"
           >Consultants</router-link
         >
-        <!-- <router-link v-if="isLoggedIn" class="link-style" to="/myProfile"
-        >My profile</router-link
-      > -->
-        <!-- <router-link v-if="isLoggedIn" class="link-style" to="/profile"
-        >Profile</router-link
-      > -->
         <router-link v-if="isLoggedIn" class="link-style" to="/myProfile"
           >My profile</router-link
         >
@@ -135,19 +121,6 @@ a.logo-link {
     display: none;
   }
   .navigation {
-    justify-content: left;
-  }
-  .small {
-    display: flex;
-    position: relative;
-    justify-self: flex-end;
-    /* margin-left: 30rem;
-    margin-bottom: 6rem; */
-    width: 100%;
-    flex-basis: 100%;
-  }
-  .bm-menu {
-    display: flex;
     justify-content: flex-end;
   }
 }

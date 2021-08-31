@@ -19,10 +19,10 @@
     </div>
     <div v-if="!isLoggedIn">
       <span>
-        <router-link class="button1" to="/register">Register</router-link>
+        <router-link class="button positive" to="/register">Register</router-link>
       </span>
       <span>
-        <router-link class="button1" to="/login">Login</router-link>
+        <router-link class="button positive" to="/login">Login</router-link>
       </span>
     </div>
   </main>
@@ -41,7 +41,7 @@ export default {
 h1 {
   margin-top: 5rem;
 }
-.button1 {
+.button {
   width: 5rem;
   margin: 0 4rem;
 }

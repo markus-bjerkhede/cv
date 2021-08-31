@@ -14,7 +14,7 @@
 
     <label for="actual-btn">Choose img</label>
     <button
-      class="button1 button-positive"
+      class="button positive"
       :disabled="!selectedFile"
       @click="onUpload"
     >

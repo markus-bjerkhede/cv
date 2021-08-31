@@ -34,16 +34,7 @@ body {
   border-radius: 50%;
 }
 
-/* .button1 {
-  margin: 1rem;
-  background-color: #4ec4fd;
-  border: none;
-  color: white;
-  padding: 15px 32px;
-} */
-
-.button1 {
-  background-color: #4ec4fd;
+.button {
   border: none;
   text-align: center;
   text-decoration: none;
@@ -57,20 +48,11 @@ body {
   cursor: pointer;
   margin: 1rem;
 }
-.button2 {
+.positive {
+  background-color: #4ec4fd;
+}
+.negative {
   background-color: #6d6d6d;
-  border: none;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  border-radius: 5px;
-  transition-duration: 0.4s;
-  color: white;
-  padding: 0.5rem;
-  border-radius: 0.3rem;
-  cursor: pointer;
-  margin: 1rem;
 }
 .content {
   display: flex;

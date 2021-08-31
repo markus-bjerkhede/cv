@@ -23,9 +23,9 @@
         </select>
       </div>
     </div>
-    <button class="button1" @click="update">Post</button>
+    <button class="button positive" @click="update">Post</button>
     <div>
-      <button class="button2" @click="deleteUser">delete user</button>
+      <button class="button negative" @click="deleteUser">delete user</button>
     </div>
   </section>
 </template>
@@ -37,6 +37,8 @@ export default {
   components: { Toggle },
   data() {
     return {
+      email:"",
+      title:"",
       phone: "",
       firstName: "",
       lastName: "",

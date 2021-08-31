@@ -27,7 +27,7 @@
       <input id="profile-phoneNumber" v-model="phoneNumber" type="text" />
     </div>
 
-    <button class="button1" @click="createUserInfo">Submit info</button>
+    <button class="button positive" @click="createUserInfo">Submit info</button>
   </section>
 </template>
 

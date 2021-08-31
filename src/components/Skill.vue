@@ -43,11 +43,11 @@
         />
         <Star @update="setStars" />
         <div>
-          <button class="button1" @click="addSkill">Submit skill</button>
-          <button @click="cancelForm" class="button2">Cancel</button>
+          <button class="button positive" @click="addSkill">Submit skill</button>
+          <button @click="cancelForm" class="button negative">Cancel</button>
         </div>
       </div>
-      <button v-show="!showAdd" class="button1" @click="smoothScroll">
+      <button v-show="!showAdd" class="button positive" @click="smoothScroll">
         Add skill
       </button>
     </div>
